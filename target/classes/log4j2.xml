@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Appenders>
+
+<!--        For Console-->
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+        </Console>
+
+<!--        For File-->
+        <File name="FileAppender" fileName="application-${date:yyyyMMdd}.log" immediateFlush="false" append="true">
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+
+        <Gelf name="gelf"
+              host="tcp:localhost"
+              port="12201"
+              version="1.0"
+              extractStackTrace="true"
+              filterStackTrace="true"
+              mdcProfiling="true"
+              includeFullMdc="true"
+              maximumMessageSize="8192"
+              originHost="%host"
+              ignoreExceptions="true">
+            <Field name="timestamp"
+                   pattern="%d{dd MMM yyyy HH:mm:ss,SSS}" />
+            <Field name="level"
+                   pattern="%level" />
+            <Field name="simpleClassName"
+                   pattern="%C{1}" />
+            <Field name="className"
+                   pattern="%C" />
+            <Field name="server.simple"
+                   pattern="%host{simple}" />
+            <Field name="server.fqdn"
+                   pattern="%host{fqdn}" />
+            <Field name="application"
+                   literal="test1" />
+        </Gelf>
+
+    </Appenders>
+    <Loggers>
+        <Root level="debug">
+
+<!--            For Console-->
+            <AppenderRef ref="ConsoleAppender" />
+
+<!--            For File-->
+            <AppenderRef ref="FileAppender"/>
+
+<!--            Test LogStash-->
+            <AppenderRef ref="gelf" />
+        </Root>
+    </Loggers>
+</Configuration>

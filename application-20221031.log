@@ -1,0 +1,5 @@
+2022-10-31 22:48:10.255 [main] DEBUG  - We've just greeted the user!
+2022-10-31 22:48:10.257 [main] INFO   - We've just greeted the user!
+2022-10-31 22:48:10.257 [main] WARN   - We've just greeted the user!
+2022-10-31 22:48:10.257 [main] ERROR  - We've just greeted the user!
+2022-10-31 22:48:10.257 [main] FATAL  - We've just greeted the user!
